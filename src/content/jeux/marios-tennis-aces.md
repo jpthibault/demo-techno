@@ -2,7 +2,7 @@
 title: "Mario Tennis Aces"
 description: "Ce jeu propose plusieurs contextes dans lesquels jouer un match de tennis (différents choix de conditions, de personnages, etc.)"
 pubDate: "June 22, 2018"
-heroImage: "/mario-tennis-aces.jpg"
+heroImage: "/demo-techno/mario-tennis-aces.jpg"
 console: "Nintendo Switch"
 ---
 

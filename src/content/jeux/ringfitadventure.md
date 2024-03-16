@@ -2,7 +2,7 @@
 title: "Ring Fit Course"
 description: "Dans ce jeu, le joueur est représenté par un avatar qui court dans la nature, le Ring-Con en mains. Selon le niveau, le joueur doit passer à travers des obstacles."
 pubDate: "18 octobre 2019"
-heroImage: "/switch_ringfitadventure.webp"
+heroImage: "/demo-techno/switch_ringfitadventure.webp"
 console: "Nintendo Switch"
 ---
 
