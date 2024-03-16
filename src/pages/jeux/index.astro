@@ -2,6 +2,7 @@
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import SearchField from "../../components/SearchField.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
@@ -18,6 +19,12 @@ const posts = (await getCollection("jeux")).sort(
     <style>
       main {
         width: 960px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 20px;
+      }
+      section {
+        margin-top: 20px;
       }
       ul {
         display: flex;
@@ -63,7 +70,7 @@ const posts = (await getCollection("jeux")).sort(
         display: block;
         margin-bottom: 10px;
       }
-      .date {
+      .console {
         margin: 0;
         color: rgb(var(--gray));
       }
@@ -89,11 +96,40 @@ const posts = (await getCollection("jeux")).sort(
           font-size: 1.563em;
         }
       }
+      .filters strong {
+        display: block;
+      }
+      .filters label {
+        display: block;
+      }
     </style>
   </head>
   <body>
     <Header />
     <main>
+      <div class="filters">
+        <h5>Filtres</h5>
+        <hr />
+        <div>
+          <strong>Membres:</strong>
+          <label><input type="checkbox" name="membres" /> supérieurs </label>
+          <label><input type="checkbox" name="membres" /> inférieurs</label>
+        </div>
+        <hr />
+        <div>
+          <strong>Âges:</strong>
+          <label><input type="checkbox" name="membres" /> 2-4 </label>
+          <label><input type="checkbox" name="membres" /> 4-8</label>
+          <label><input type="checkbox" name="membres" /> 8-12</label>
+          <label><input type="checkbox" name="membres" /> 13+</label>
+        </div>
+        <hr />
+        <div>
+          <strong>Nombres de joueurs:</strong>
+          <label><input type="checkbox" name="players" /> 1</label>
+          <label><input type="checkbox" name="players" /> 2+</label>
+        </div>
+      </div>
       <section>
         <ul>
           {
@@ -109,9 +145,7 @@ const posts = (await getCollection("jeux")).sort(
                     />
                   </div>
                   <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
+                  <p class="console">{post.data.console}</p>
                 </a>
               </li>
             ))
