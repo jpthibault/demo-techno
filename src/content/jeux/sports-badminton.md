@@ -2,7 +2,7 @@
 title: "Sports Badminton"
 description: "Le joueur tente de remporter un match de badminton"
 pubDate: "September 6 2023"
-heroImage: "/sports-badminton.png"
+heroImage: "/demo-techno/sports-badminton.png"
 console: "Nintendo Switch"
 ---
 
