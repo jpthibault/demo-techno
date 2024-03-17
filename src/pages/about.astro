@@ -1,14 +1,9 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<Layout
-  title="About coquille"
-  description="Lorem ipsum dolor sit amet"
-  pubDate={new Date("March 08 2024")}
-  heroImage="/blog-placeholder-about.jpg"
-  console=""
->
+<BaseLayout>
+  <h1>About</h1>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo
@@ -70,4 +65,4 @@ import Layout from "../layouts/BlogPost.astro";
     pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique
     magna.
   </p>
-</Layout>
+</BaseLayout>

@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 
-const jeux = defineCollection({
+const gamesCollection = defineCollection({
 	type: 'content',
 	// Type-check frontmatter using a schema
 	schema: z.object({
@@ -11,7 +11,8 @@ const jeux = defineCollection({
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
+		tag: z.array(z.string()).optional()
 	}),
 });
 
-export const collections = { jeux };
+export const collections = { jeux:gamesCollection };

@@ -1,155 +1,138 @@
 ---
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
-import FormattedDate from "../../components/FormattedDate.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const posts = (await getCollection("jeux")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <style>
-      main {
-        width: 960px;
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 20px;
-      }
-      section {
-        margin-top: 20px;
-      }
+<BaseLayout>
+  <style>
+    main {
+      width: 960px;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 20px;
+    }
+    section {
+      margin-top: 20px;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    ul li {
+      width: calc(50% - 1rem);
+    }
+    ul li * {
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+    ul li img {
+      margin-bottom: 0.5rem;
+    }
+    ul li img {
+      margin-bottom: 0.5rem;
+    }
+    ul li a {
+      display: block;
+    }
+    .title {
+      margin: 0;
+      color: rgb(var(--black));
+      line-height: 1;
+    }
+    .img-wrapper {
+      max-height: 200px;
+      overflow: hidden;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .console {
+      margin: 0;
+      color: rgb(var(--gray));
+    }
+    ul li a:hover h4,
+    ul li a:hover .date {
+      color: rgb(var(--accent));
+    }
+    ul a:hover img {
+      box-shadow: var(--box-shadow);
+    }
+    @media (max-width: 720px) {
       ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+        gap: 0.5em;
       }
       ul li {
-        width: calc(50% - 1rem);
-      }
-      ul li * {
-        text-decoration: none;
-        transition: 0.2s ease;
-      }
-      /* ul li:first-child {
         width: 100%;
-        margin-bottom: 1rem;
         text-align: center;
       }
-      ul li:first-child img {
-        width: 100%;
-      } */
-   
-      ul li img {
-        margin-bottom: 0.5rem;
+      ul li:first-child {
+        margin-bottom: 0;
       }
-      ul li a {
-        display: block;
+      ul li:first-child .title {
+        font-size: 1.563em;
       }
-      .title {
-        margin: 0;
-        color: rgb(var(--black));
-        line-height: 1;
+    }
+    .filters strong {
+      display: block;
+    }
+    .filters label {
+      display: block;
+    }
+  </style>
+  <div class="filters">
+    <h5>Filtres</h5>
+    <hr />
+    <div>
+      <strong>Membres:</strong>
+      <label><input type="checkbox" name="membres" /> supérieurs </label>
+      <label><input type="checkbox" name="membres" /> inférieurs</label>
+    </div>
+    <hr />
+    <div>
+      <strong>Âges:</strong>
+      <label><input type="checkbox" name="membres" /> 2-4 </label>
+      <label><input type="checkbox" name="membres" /> 4-8</label>
+      <label><input type="checkbox" name="membres" /> 8-12</label>
+      <label><input type="checkbox" name="membres" /> 13+</label>
+    </div>
+    <hr />
+    <div>
+      <strong>Nombres de joueurs:</strong>
+      <label><input type="checkbox" name="players" /> 1</label>
+      <label><input type="checkbox" name="players" /> 2+</label>
+    </div>
+  </div>
+  <section>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/demo-techno/jeux/${post.slug}/`}>
+              <div class="img-wrapper">
+                <img
+                  width={720}
+                  height={360}
+                  src={post.data.heroImage}
+                  alt=""
+                />
+              </div>
+              <h4 class="title">{post.data.title}</h4>
+              <p class="console">{post.data.console}</p>
+            </a>
+          </li>
+        ))
       }
-      .img-wrapper {
-        max-height: 200px;
-        overflow: hidden;
-        border-radius: 12px;
-        display: block;
-        margin-bottom: 10px;
-      }
-      .console {
-        margin: 0;
-        color: rgb(var(--gray));
-      }
-      ul li a:hover h4,
-      ul li a:hover .date {
-        color: rgb(var(--accent));
-      }
-      ul a:hover img {
-        box-shadow: var(--box-shadow);
-      }
-      @media (max-width: 720px) {
-        ul {
-          gap: 0.5em;
-        }
-        ul li {
-          width: 100%;
-          text-align: center;
-        }
-        ul li:first-child {
-          margin-bottom: 0;
-        }
-        ul li:first-child .title {
-          font-size: 1.563em;
-        }
-      }
-      .filters strong {
-        display: block;
-      }
-      .filters label {
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <Header />
-    <main>
-      <div class="filters">
-        <h5>Filtres</h5>
-        <hr />
-        <div>
-          <strong>Membres:</strong>
-          <label><input type="checkbox" name="membres" /> supérieurs </label>
-          <label><input type="checkbox" name="membres" /> inférieurs</label>
-        </div>
-        <hr />
-        <div>
-          <strong>Âges:</strong>
-          <label><input type="checkbox" name="membres" /> 2-4 </label>
-          <label><input type="checkbox" name="membres" /> 4-8</label>
-          <label><input type="checkbox" name="membres" /> 8-12</label>
-          <label><input type="checkbox" name="membres" /> 13+</label>
-        </div>
-        <hr />
-        <div>
-          <strong>Nombres de joueurs:</strong>
-          <label><input type="checkbox" name="players" /> 1</label>
-          <label><input type="checkbox" name="players" /> 2+</label>
-        </div>
-      </div>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <a href={`/jeux/${post.slug}/`}>
-                  <div class="img-wrapper">
-                    <img
-                      width={720}
-                      height={360}
-                      src={post.data.heroImage}
-                      alt=""
-                    />
-                  </div>
-                  <h4 class="title">{post.data.title}</h4>
-                  <p class="console">{post.data.console}</p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+    </ul>
+  </section>
+</BaseLayout>

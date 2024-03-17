@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const games = await getCollection("jeux");
+  return [{ params: { console: "Nintendo Switch" }, props: { games } }];
+}
+
+const { console } = Astro.params;
+const { games } = Astro.props;
+const filteredGames = games.filter((game) => game.console === console);
+---
+
+<BaseLayout>
+  <h1>Games per console</h1>
+  <p>{console} games</p>
+  <ul>
+    ...
+    {filteredGames.map((game) => <li>{game.title}</li>)}
+  </ul>
+</BaseLayout>

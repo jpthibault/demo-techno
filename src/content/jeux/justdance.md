@@ -4,6 +4,8 @@ description: "Dans ce jeu, le joueur doit reproduire les mouvements du personnag
 pubDate: "Novembre 2021"
 heroImage: "/demo-techno/justdance2022.webp"
 console: "Nintendo Switch"
+tag:
+  - "astro"
 ---
 
 ### Accessoires
