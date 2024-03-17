@@ -1,22 +1,36 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import GameCard from "../../components/GameCard.astro";
 
 export async function getStaticPaths() {
   const games = await getCollection("jeux");
-  return [{ params: { console: "Nintendo Switch" }, props: { games } }];
+  return [
+    { params: { console: "Nintendo Switch" }, props: { games } },
+    { params: { console: "xbox" }, props: { games } },
+  ];
 }
 
 const { console } = Astro.params;
 const { games } = Astro.props;
-const filteredGames = games.filter((game) => game.console === console);
+const filteredGames = games.filter((game) => {
+  return game.data.console === console;
+});
 ---
 
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+  }
+</style>
+
 <BaseLayout>
-  <h1>Games per console</h1>
-  <p>{console} games</p>
-  <ul>
-    ...
-    {filteredGames.map((game) => <li>{game.title}</li>)}
-  </ul>
+  <h2>Jeux sur {console}</h2>
+  <div class="grid">
+    <ul>
+      {filteredGames.map((game) => <GameCard {...game} />)}
+    </ul>
+  </div>
 </BaseLayout>

@@ -1,7 +1,5 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import GameCard from "../../components/GameCard.astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -12,7 +10,7 @@ const posts = (await getCollection("jeux")).sort(
 
 <BaseLayout>
   <style>
-    main {
+    section:first-of-type {
       width: 960px;
       display: grid;
       grid-template-columns: 1fr 3fr;
@@ -50,13 +48,7 @@ const posts = (await getCollection("jeux")).sort(
       color: rgb(var(--black));
       line-height: 1;
     }
-    .img-wrapper {
-      max-height: 200px;
-      overflow: hidden;
-      border-radius: 12px;
-      display: block;
-      margin-bottom: 10px;
-    }
+
     .console {
       margin: 0;
       color: rgb(var(--gray));
@@ -90,49 +82,40 @@ const posts = (await getCollection("jeux")).sort(
       display: block;
     }
   </style>
-  <div class="filters">
-    <h5>Filtres</h5>
-    <hr />
-    <div>
-      <strong>Membres:</strong>
-      <label><input type="checkbox" name="membres" /> supérieurs </label>
-      <label><input type="checkbox" name="membres" /> inférieurs</label>
-    </div>
-    <hr />
-    <div>
-      <strong>Âges:</strong>
-      <label><input type="checkbox" name="membres" /> 2-4 </label>
-      <label><input type="checkbox" name="membres" /> 4-8</label>
-      <label><input type="checkbox" name="membres" /> 8-12</label>
-      <label><input type="checkbox" name="membres" /> 13+</label>
-    </div>
-    <hr />
-    <div>
-      <strong>Nombres de joueurs:</strong>
-      <label><input type="checkbox" name="players" /> 1</label>
-      <label><input type="checkbox" name="players" /> 2+</label>
-    </div>
-  </div>
   <section>
-    <ul>
-      {
-        posts.map((post) => (
-          <li>
-            <a href={`/demo-techno/jeux/${post.slug}/`}>
-              <div class="img-wrapper">
-                <img
-                  width={720}
-                  height={360}
-                  src={post.data.heroImage}
-                  alt=""
-                />
-              </div>
-              <h4 class="title">{post.data.title}</h4>
-              <p class="console">{post.data.console}</p>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="filters">
+      <h5>Filtres</h5>
+      <hr />
+      <div>
+        <strong>Membres:</strong>
+        <label><input type="checkbox" name="membres" /> supérieurs </label>
+        <label><input type="checkbox" name="membres" /> inférieurs</label>
+      </div>
+      <hr />
+      <div>
+        <strong>Âges:</strong>
+        <label><input type="checkbox" name="membres" /> 2-4 </label>
+        <label><input type="checkbox" name="membres" /> 4-8</label>
+        <label><input type="checkbox" name="membres" /> 8-12</label>
+        <label><input type="checkbox" name="membres" /> 13+</label>
+      </div>
+      <hr />
+      <div>
+        <strong>Nombres de joueurs:</strong>
+        <label><input type="checkbox" name="players" /> 1</label>
+        <label><input type="checkbox" name="players" /> 2+</label>
+      </div>
+    </div>
+    <div>
+      <ul>
+        {
+          posts.map((post) => (
+            <li>
+              <GameCard {...post} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
 </BaseLayout>

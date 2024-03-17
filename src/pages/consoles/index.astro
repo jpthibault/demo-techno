@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const games = await getCollection("jeux");
+const consoles = Array.from(new Set(games.map(({ data }) => data.console)));
+---
+
+<BaseLayout>
+  <ul>
+    {
+      consoles.map((str) => (
+        <li>
+          <a href={"/demo-techno/consoles/" + str}>{str}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

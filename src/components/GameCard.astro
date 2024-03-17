@@ -1,0 +1,28 @@
+---
+const {
+  slug,
+  data: { heroImage, title, console },
+} = Astro.props;
+---
+
+<style>
+  .game-card {
+    text-decoration: none;
+    color: rgb(var(--black));
+  }
+  .img-wrapper {
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 10px;
+  }
+</style>
+
+<a href={`/demo-techno/jeux/${slug}/`} class="game-card">
+  <div class="img-wrapper">
+    <img width={720} height={360} src={heroImage} alt="" />
+  </div>
+  <h4 class="title">{title}</h4>
+  <p class="console">{console}</p>
+</a>
